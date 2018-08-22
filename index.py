@@ -17,6 +17,24 @@ async def thetruth(ctx):
     await ctx.send("traps are gay!")
 
 @bot.command()
+async def rolladv(ctx):
+    firstRoll = random.randint(1, 20)
+    secondRoll = random.randint(1, 20)
+    if(firstRoll > secondRoll):
+       await ctx.send(str(firstRoll) + " (lower roll was " + str(secondRoll) + ")")
+    else:
+       await ctx.send(str(secondRoll) + " (lower roll was " + str(firstRoll) + ")")
+
+@bot.command()
+async def rolldav(ctx):
+    firstRoll = random.randint(1, 20)
+    secondRoll = random.randint(1, 20)
+    if(firstRoll > secondRoll):
+      await  ctx.send(str(secondRoll) + " (higher roll was " + str(firstRoll) + ")")
+    else:
+      await  ctx.send(str(firstRoll) + " (higher roll was " + str(secondRoll) + ")")
+
+@bot.command()
 async def roll(ctx, dice: str):
     diceNum = 0
     dieNum = 0
@@ -28,7 +46,7 @@ async def roll(ctx, dice: str):
     if parameter2.isdigit():
         dieNum = int(parameter2)
         for _ in range(diceNum):
-            currentRoll = random.randint(1, dieNum + 1)
+            currentRoll = random.randint(1, dieNum)
             rolls.append(currentRoll)
             endRoll += currentRoll
     else:
@@ -38,7 +56,7 @@ async def roll(ctx, dice: str):
             dieNum = int(parameter3.pop(0))
             addNum = int(parameter3.pop(0))
             for _ in range(diceNum):
-                currentRoll = random.randint(1, dieNum + 1)
+                currentRoll = random.randint(1, dieNum)
                 rolls.append(currentRoll)
                 endRoll += currentRoll
             endRoll += addNum
@@ -46,7 +64,7 @@ async def roll(ctx, dice: str):
             dieNum = int(parameter3.pop(0))
             subNum = int(parameter3.pop(0))
             for _ in range(diceNum):
-                currentRoll = random.randint(1, dieNum + 1)
+                currentRoll = random.randint(1, dieNum)
                 rolls.append(currentRoll)
                 endRoll += currentRoll
             endRoll -= subNum
