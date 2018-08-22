@@ -1,5 +1,6 @@
 import discord
 import random
+import config
 from discord.ext import commands
 
 bot = commands.Bot(command_prefix='!', description='A bot that does whatever I tell it to')
@@ -12,7 +13,7 @@ async def on_ready():
     print('------')
 
 @bot.command()
-async def roll(ctx, string: dice):
+async def roll(ctx, dice: str):
     diceNum = 0
     dieNum = 0
     endRoll = 0
@@ -34,8 +35,6 @@ async def roll(ctx, string: dice):
             subNum = parameter3.pop(0)
             for _ in range(diceNum):
                 endRoll += rand.randInt(1, dieNum + 1) - subNum
-
-
     await ctx.send(endRoll)
 
-    bot.run(NDgwNTMwMzEyMTQ1NjY2MDQ4.DlpOew.TuVelNWL3Z6M12atC6O2XTiX3PM)
+bot.run(config.token)
