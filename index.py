@@ -24,21 +24,32 @@ async def roll(ctx, dice: str):
     parameter1 = dice.split("d", 1)
     diceNum = int(parameter1.pop(0))
     parameter2 = parameter1.pop(0)
+    rolls = []
     if parameter2.isdigit():
         dieNum = int(parameter2)
         for _ in range(diceNum):
-            endRoll += random.randint(1, dieNum + 1)
+            currentRoll = random.randint(1, dieNum + 1)
+            rolls.append(currentRoll)
+            endRoll += currentRoll
     else:
         parameter3 = parameter2.split("-", 1)
-        dieNum = int(parameter3.pop(0))
-        if(parameter3.len == 1):
+        if(len(parameter3) == 1):
+            parameter3 = parameter2.split("+", 1)
+            dieNum = int(parameter3.pop(0))
             addNum = int(parameter3.pop(0))
             for _ in range(diceNum):
-                endRoll += random.randint(1, dieNum + 1) + addNum
+                currentRoll = random.randint(1, dieNum + 1)
+                rolls.append(currentRoll)
+                endRoll += currentRoll
+            endRoll += addNum
         else:
+            dieNum = int(parameter3.pop(0))
             subNum = int(parameter3.pop(0))
             for _ in range(diceNum):
-                endRoll += random.randint(1, dieNum + 1) - subNum
-    await ctx.send(endRoll)
+                currentRoll = random.randint(1, dieNum + 1)
+                rolls.append(currentRoll)
+                endRoll += currentRoll
+            endRoll -= subNum
+    await ctx.send(str(rolls) + " = " + str(endRoll))
 
 bot.run(config.token)
