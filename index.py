@@ -1,7 +1,12 @@
 import discord
 import random
 import config
+import requests
+import json
 from discord.ext import commands
+
+jokeUrl = "https://icanhazdadjoke.com/"
+doggoUrl = "https://dog.ceo/api/breeds/image/random"
 
 bot = commands.Bot(command_prefix='!', description='A bot that does whatever I tell it to')
 
@@ -69,5 +74,15 @@ async def roll(ctx, dice: str):
                 endRoll += currentRoll
             endRoll -= subNum
     await ctx.send(str(rolls) + " = " + str(endRoll))
+
+@bot.command()
+async def joke(ctx):
+    response = requests.get(jokeUrl, headers={"Accept": "application/json"})
+    await ctx.send(response.json()["joke"])
+
+@bot.command()
+async def doggo(ctx):
+    response = requests.get(doggoUrl)
+    await ctx.send(response.json()["message"])
 
 bot.run(config.token)
